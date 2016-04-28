@@ -4,10 +4,9 @@ var db = monk('localhost:27017/test');
 var cosine = require('cosine');
 var stopwords = require('stopwords').english;
 
-var keyValueCollection = db.get('keyValueCollection');
-var linkCollection = db.get('linkCollection');
-
-exports.async_linker = function(keyValueCollection, linkCollection, callback){
+exports.async_linker = function(keyValueCollectionString, linkCollectionString){
+	var keyValueCollection = db.get(keyValueCollectionString);
+	var linkCollection = db.get(linkCollectionString);
 	var dbReadPromise = keyValueCollection.find().each( function(keyValue1) { 
 	    keyValueCollection.find().each( function(keyValue2) 
 				{ 
