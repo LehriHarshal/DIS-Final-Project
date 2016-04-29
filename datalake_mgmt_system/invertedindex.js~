@@ -16,7 +16,6 @@ exports.async_invertedindex = function(keyValueCollectionString, invertedIndexCo
 								for (i = 0; i < valueWords.length; i++) emit( valueWords[i], this._id );
 							},
 							function(key, values) {
-							        
 								var output = {nodes: values};
 								return output;
 							}, 
