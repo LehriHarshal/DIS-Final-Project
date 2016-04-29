@@ -1,4 +1,5 @@
- var nodes = new vis.DataSet([
+$( document ).ready(function() {
+     var nodes = new vis.DataSet([
         {id: 1, label: 'Node 1'},
         {id: 2, label: 'Node 2'},
         {id: 3, label: 'Node 3'},
@@ -23,6 +24,5 @@
         edges: edges
     };
     var options = {};
-
-    // initialize your network!
     var network = new vis.Network(container, data, options);
+});
