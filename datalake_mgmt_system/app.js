@@ -4,9 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var db = require('./db');
+var session = require('client-sessions');
+
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var login = require('./routes/login');
+
 
 var app = express();
 
@@ -14,6 +18,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+/*Db = mongo.Db;
+var db = new Db('test', new Server('localhost', 27017), {safe:false});*/
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -22,9 +28,26 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  cookieName: 'session',
+  secret: 'key_session_cookie',
+  duration: 2 * 60 * 1000,
+  activeDuration: 1 * 60 * 1000,
+}));
+
+/*app.use(function(req,res,next){
+    req.db = db;
+    next();
+});*/
+db.connect('mongodb://localhost:27017/test', function(err) {
+  if (err) {
+    console.log('Unable to connect to DB.')
+    process.exit(1)
+  }
+})
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
