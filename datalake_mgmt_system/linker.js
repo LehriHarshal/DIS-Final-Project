@@ -1,13 +1,13 @@
-var mongo = require('mongodb');
+/*var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/test');
+var db = monk('localhost:27017/test');*/
 var cosine = require('cosine');
 var stopwords = require('stopwords').english;
 
-exports.async_linker = function(keyValueCollectionString, linkCollectionString){
-	var keyValueCollection = db.get(keyValueCollectionString);
-	var linkCollection = db.get(linkCollectionString);
-	var dbReadPromise = keyValueCollection.find().each( function(keyValue1) { 
+exports.async_linker = function(db, keyValueCollectionString, linkCollectionString){
+	var keyValueCollection = db.collection(keyValueCollectionString);
+	var linkCollection = db.collection(linkCollectionString);
+	keyValueCollection.find().each( function(keyValue1) { 
 	    keyValueCollection.find().each( function(keyValue2) 
 				{ 
 					if(
@@ -35,10 +35,10 @@ exports.async_linker = function(keyValueCollectionString, linkCollectionString){
 					
 					}
 				 } 
-			)}).error(function (err, doc) { if (err) throw err;});
+			)});
 
 	//Returns a promise that on success determines that all inserts to mongodb have been issued, but may not have been written yet
-	return dbReadPromise;
+	//return dbReadPromise;
 
 };
 

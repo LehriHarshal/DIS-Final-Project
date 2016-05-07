@@ -39,11 +39,12 @@ app.use(session({
     req.db = db;
     next();
 });*/
-db.connect('mongodb://localhost:27017/test', function(err) {
+db.connect('mongodb://localhost:27017/test', function(err, db) {
   if (err) {
     console.log('Unable to connect to DB.')
     process.exit(1)
   }
+
 })
 
 app.use('/', routes);
