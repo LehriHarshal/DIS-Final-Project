@@ -1,10 +1,8 @@
-+ function($) {
+/*+ function($) {
     'use strict';
 
-    // UPLOAD CLASS DEFINITION
-    // ======================
 
-    var dropZone = document.getElementById('drop-zone');
+    //var dropZone = document.getElementById('drop-zone');
     var uploadForm = document.getElementById('js-upload-form');
 
     var startUpload = function(files) {
@@ -16,8 +14,8 @@
         e.preventDefault()
 
         startUpload(uploadFiles)
-    })
-
+    });
+/*
     dropZone.ondrop = function(e) {
         e.preventDefault();
         this.className = 'upload-drop-zone';
@@ -26,13 +24,24 @@
     }
 
     dropZone.ondragover = function() {
-        this.className = 'upload-drop-zone drop';
+        this.className =  'upload-drop-zone drop';
         return false;
     }
 
     dropZone.ondragleave = function() {
         this.className = 'upload-drop-zone';
-        return false;
-    }
+        return false;*/
+    /*}
 
-}(jQuery);
+}(jQuery);*/
+
+$( document ).ready(function() {
+   Dropzone.options.myAwesomeDropzone = {
+  paramName: "file", // The name that will be used to transfer the file
+  maxFilesize: 2, // MB
+  queuecomplete: function(file) {
+    console.log('completed');
+  }
+};
+
+});
